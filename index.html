@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>حجز جمعية خيرية</title>
+
+<style>
+body{
+  font-family: "Cairo", Arial, sans-serif;
+  background: linear-gradient(135deg,#11998e,#38ef7d);
+  padding:40px;
+  color:#fff;
+}
+
+.container{
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  max-width:500px;
+  margin:auto;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+  font-weight:bold;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  font-size:15px;
+}
+
+textarea{ resize:none }
+
+button{
+  margin-top:25px;
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  font-weight:bold;
+  background:#ffd700;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#ffe44d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>📋 نموذج حجز جمعية خيرية</h2>
+
+  <label>الاسم الكامل</label>
+  <input type="text" id="name" required>
+
+  <label>رقم الهاتف</label>
+  <input type="tel" id="phone" required>
+
+  <label>نوع الخدمة</label>
+  <select id="service">
+    <option>مساعدة مالية</option>
+    <option>مساعدة غذائية</option>
+    <option>مساعدة طبية</option>
+    <option>كفالة يتيم</option>
+    <option>أخرى</option>
+  </select>
+
+  <label>ملاحظات</label>
+  <textarea id="notes" rows="4"></textarea>
+
+  <button onclick="sendWhatsApp()">✅ تأكيد الحجز</button>
+</div>
+
+<script>
+function sendWhatsApp(){
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const service = document.getElementById("service").value;
+  const notes = document.getElementById("notes").value.trim();
+
+  if(!name || !phone){
+    alert("من فضلك اكمل البيانات");
+    return;
+  }
+
+  alert("تم الحجز بنجاح ✅ سنقوم بالتواصل معك");
+
+  const message =
+`📌 حجز جديد في الجمعية الخيرية
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+🛎 الخدمة: ${service}
+📝 ملاحظات: ${notes || "لا يوجد"}`;
+
+  const whatsappNumber = "201111317123"; // رقم واتساب بصيغة دولية
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
